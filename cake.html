@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Magical Birthday Cake</title>
     <style>
       /* Global Styles */
@@ -12,6 +12,7 @@
         box-sizing: border-box;
         font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial,
           sans-serif;
+        -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
       }
 
       body {
@@ -21,8 +22,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow-x: hidden;
         position: relative;
+        touch-action: manipulation; /* Improve touch responsiveness */
+      }
+
+      /* Header Text */
+      .header-text {
+        text-align: center;
+        color: #666;
+        margin: 15px 20px 5px;
+        font-size: 1.1rem;
+        z-index: 10;
+        position: relative;
+        max-width: 90%;
       }
 
       /* Floating Balloons */
@@ -33,6 +46,20 @@
         border-radius: 50%;
         animation: float 15s infinite ease-in-out;
         z-index: 1;
+      }
+
+      @media (max-width: 768px) {
+        .balloon {
+          width: 30px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .balloon {
+          width: 25px;
+          height: 35px;
+        }
       }
 
       @keyframes float {
@@ -57,6 +84,13 @@
         z-index: 1;
       }
 
+      @media (max-width: 768px) {
+        .confetti {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
       @keyframes confettiFall {
         0% {
           transform: translateY(-10vh) rotate(0deg);
@@ -73,8 +107,11 @@
         position: relative;
         width: 300px;
         height: 300px;
-        margin: 20px auto;
+        margin: 10px auto;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       /* Cake Base */
@@ -143,6 +180,7 @@
         justify-content: center;
         gap: 20px;
         z-index: 15;
+        flex-wrap: wrap; /* Allow candles to wrap on very small screens */
       }
 
       .candle {
@@ -153,6 +191,7 @@
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.3s ease;
+        touch-action: manipulation; /* Better touch handling */
       }
 
       .flame {
@@ -237,6 +276,7 @@
         box-shadow: 0 0 5px #ffff99;
         opacity: 0;
         z-index: 12;
+        pointer-events: none;
       }
 
       @keyframes sparkle {
@@ -271,6 +311,7 @@
         max-width: 400px;
         transition: all 0.5s ease;
         border: 3px solid rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(5px); /* For modern browsers */
       }
 
       .wish-message.show {
@@ -321,6 +362,7 @@
         border-radius: 50%;
         opacity: 0;
         z-index: 5;
+        pointer-events: none;
       }
 
       @keyframes firework {
@@ -348,12 +390,13 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 0 50px;
+        padding: 0 20px;
         z-index: 50;
+        flex-wrap: wrap; /* Allow buttons to wrap on small screens */
       }
 
       .btn {
-        padding: 12px 24px;
+        padding: 12px 20px;
         background: linear-gradient(to right, #ff85a2, #ff3366);
         color: white;
         border: none;
@@ -364,6 +407,10 @@
         box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
         transition: all 0.3s ease;
         outline: none;
+        touch-action: manipulation; /* Better touch handling */
+        min-width: 120px; /* Ensure buttons don't get too small */
+        text-align: center;
+        margin: 5px 0;
       }
 
       .btn:hover {
@@ -376,7 +423,20 @@
         box-shadow: 0 5px 10px rgba(255, 51, 102, 0.4);
       }
 
+      /* Touch instructions */
+      .touch-instructions {
+        text-align: center;
+        color: #666;
+        margin: 10px 20px 20px;
+        font-size: 0.9rem;
+        z-index: 10;
+        position: relative;
+        max-width: 90%;
+      }
+
       /* Improved Responsive Design */
+
+      /* Tablets */
       @media (max-width: 768px) {
         .cake-container {
           width: 250px;
@@ -388,8 +448,30 @@
           height: 90px;
         }
 
+        .cake:before {
+          height: 30px;
+          top: -30px;
+        }
+
+        .cake:after {
+          height: 25px;
+          top: -55px;
+        }
+
         .candle-container {
+          top: -75px;
           gap: 15px;
+        }
+
+        .candle {
+          width: 7px;
+          height: 25px;
+        }
+
+        .flame {
+          width: 10px;
+          height: 18px;
+          top: -18px;
         }
 
         .wish-message h2 {
@@ -401,8 +483,8 @@
         }
 
         .nav-buttons {
-          padding: 0 20px;
-          bottom: 20px;
+          padding: 0 15px;
+          bottom: 25px;
         }
 
         .btn {
@@ -411,11 +493,17 @@
         }
       }
 
+      /* Mobile Phones */
       @media (max-width: 480px) {
+        .header-text {
+          font-size: 1rem;
+          margin-top: 10px;
+        }
+
         .cake-container {
           width: 200px;
           height: 200px;
-          margin: 10px auto;
+          margin: 5px auto;
         }
 
         .cake {
@@ -423,14 +511,35 @@
           height: 80px;
         }
 
+        .cake:before {
+          height: 25px;
+          top: -25px;
+        }
+
+        .cake:after {
+          height: 20px;
+          top: -45px;
+        }
+
+        .frosting {
+          top: -60px;
+          height: 4px;
+        }
+
         .candle-container {
+          top: -65px;
           gap: 12px;
-          top: -85px;
         }
 
         .candle {
           width: 6px;
-          height: 25px;
+          height: 20px;
+        }
+
+        .flame {
+          width: 8px;
+          height: 15px;
+          top: -15px;
         }
 
         .wish-message {
@@ -449,18 +558,27 @@
         }
 
         .nav-buttons {
-          padding: 0 15px;
-          bottom: 15px;
+          padding: 0 10px;
+          bottom: 20px;
+          flex-direction: column; /* Stack buttons vertically */
+          align-items: center;
+          gap: 10px;
         }
 
         .btn {
           padding: 8px 14px;
           font-size: 14px;
           white-space: nowrap;
+          width: 100%;
+          max-width: 250px;
+        }
+
+        .touch-instructions {
+          font-size: 0.8rem;
         }
       }
 
-      /* Extra small devices */
+      /* Extra small devices (old phones) */
       @media (max-width: 360px) {
         .cake-container {
           width: 180px;
@@ -472,8 +590,34 @@
           height: 70px;
         }
 
+        .cake:before {
+          height: 20px;
+          top: -20px;
+        }
+
+        .cake:after {
+          height: 15px;
+          top: -35px;
+        }
+
+        .frosting {
+          top: -50px;
+        }
+
         .candle-container {
-          gap: 10px;
+          top: -55px;
+          gap: 8px;
+        }
+
+        .candle {
+          width: 5px;
+          height: 18px;
+        }
+
+        .flame {
+          width: 7px;
+          height: 12px;
+          top: -12px;
         }
 
         .wish-message {
@@ -490,183 +634,126 @@
         }
 
         .nav-buttons {
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
+          bottom: 15px;
         }
 
         .btn {
-          width: 100%;
-          text-align: center;
+          padding: 7px 12px;
           font-size: 13px;
         }
+
+        .touch-instructions {
+          display: none; /* Hide on very small screens to save space */
+        }
+      }
+
+      /* Landscape orientation */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .cake-container {
+          width: 180px;
+          height: 180px;
+          margin: 5px auto;
+        }
+
+        .header-text {
+          margin-top: 5px;
+          margin-bottom: 0;
+        }
+
+        .nav-buttons {
+          bottom: 15px;
+          flex-direction: row; /* Keep buttons side by side in landscape */
+          padding: 0 10px;
+        }
+
+        .btn {
+          padding: 8px 12px;
+          font-size: 13px;
+          min-width: 100px;
+        }
+
+        .touch-instructions {
+          display: none; /* Hide to save space */
+        }
+      }
+
+      /* High-resolution screens */
+      @media (min-width: 1200px) {
+        .cake-container {
+          width: 350px;
+          height: 350px;
+        }
+
+        .cake {
+          width: 230px;
+          height: 140px;
+        }
+
+        .cake:before {
+          height: 45px;
+          top: -45px;
+        }
+
+        .cake:after {
+          height: 35px;
+          top: -80px;
+        }
+
+        .candle-container {
+          top: -110px;
+        }
+
+        .candle {
+          width: 9px;
+          height: 35px;
+        }
+
+        .flame {
+          width: 14px;
+          height: 25px;
+          top: -25px;
+        }
+      }
+
+      /* Prevent text selection for better mobile experience */
+      .btn, .candle, .header-text {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
     </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <script
-      bis_use="true"
-      type="text/javascript"
-      charset="utf-8"
-      data-bis-config='["facebook.com/","twitter.com/","youtube-nocookie.com/embed/","//vk.com/","//www.vk.com/","linkedin.com/","//www.linkedin.com/","//instagram.com/","//www.instagram.com/","//www.google.com/recaptcha/api2/","//hangouts.google.com/webchat/","//www.google.com/calendar/","//www.google.com/maps/embed","spotify.com/","soundcloud.com/","//player.vimeo.com/","//disqus.com/","//tgwidget.com/","//js.driftt.com/","friends2follow.com","/widget","login","//video.bigmir.net/","blogger.com","//smartlock.google.com/","//keep.google.com/","/web.tolstoycomments.com/","moz-extension://","chrome-extension://","/auth/","//analytics.google.com/","adclarity.com","paddle.com/checkout","hcaptcha.com","recaptcha.net","2captcha.com","accounts.google.com","www.google.com/shopping/customerreviews","buy.tinypass.com","gstatic.com","secureir.ebaystatic.com","docs.google.com","contacts.google.com","github.com","mail.google.com","chat.google.com","audio.xpleer.com","keepa.com","static.xx.fbcdn.net","sas.selleramp.com","1plus1.video","console.googletagservices.com","//lnkd.demdex.net/","//radar.cedexis.com/","//li.protechts.net/","challenges.cloudflare.com/","ogs.google.com"]'
-      src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"
-    ></script>
-    <style type="text/css">
-      @font-face {
-        font-family: "Atlassian Sans";
-        font-style: normal;
-        font-weight: 400 653;
-        font-display: swap;
-        src: url("chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/fonts/AtlassianSans-latin.woff2")
-          format("woff2");
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-    </style>
   </head>
-  <body
-    __processed_7adb44bb-c731-4b39-a819-dea3d74cf4d5__="true"
-    bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJMSU5LRURJTiI6ImRpc2FibGVkIiwiQ09ORklHIjoiZGlzYWJsZWQifSwidmVyc2lvbiI6IjIuMC4yMiIsInNjb3JlIjoyMDAyMn1d"
-    data-new-gr-c-s-check-loaded="14.1235.0"
-    data-gr-ext-installed=""  
-  >
-  <h2 style="color: grey;">Hover on the Candles...</h2>
+  <body>
+    <h2 class="header-text">Tap the Candles to Blow Them Out!</h2>
+    <p class="touch-instructions">Touch or click each candle. Blow all 5 to reveal the surprise!</p>
+
     <!-- Balloons and Confetti will be added by JavaScript -->
 
     <!-- Birthday Cake -->
-    <div class="cake-container" bis_skin_checked="1">
-      <div class="cake" bis_skin_checked="1">
+    <div class="cake-container">
+      <div class="cake">
         <!-- Candles will be added by JavaScript -->
-        <div class="candle-container" id="candleContainer" bis_skin_checked="1">
-          <div class="candle" bis_skin_checked="1">
-            <div class="flame" bis_skin_checked="1"></div>
-            <div class="smoke" bis_skin_checked="1"></div>
-          </div>
-          <div class="candle" bis_skin_checked="1">
-            <div class="flame" bis_skin_checked="1"></div>
-            <div class="smoke" bis_skin_checked="1"></div>
-          </div>
-          <div class="candle" bis_skin_checked="1">
-            <div class="flame" bis_skin_checked="1"></div>
-            <div class="smoke" bis_skin_checked="1"></div>
-          </div>
-          <div class="candle" bis_skin_checked="1">
-            <div class="flame" bis_skin_checked="1"></div>
-            <div class="smoke" bis_skin_checked="1"></div>
-          </div>
-          <div class="candle" bis_skin_checked="1">
-            <div class="flame" bis_skin_checked="1"></div>
-            <div class="smoke" bis_skin_checked="1"></div>
-          </div>
-        </div>
+        <div class="candle-container" id="candleContainer"></div>
 
         <!-- Frosting & Decorations -->
-        <div class="frosting" bis_skin_checked="1"></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(102, 204, 255);
-            top: -27.7843px;
-            left: 69.0464%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 51, 102);
-            top: -20.9579px;
-            left: 63.1827%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 153, 102);
-            top: -53.6883px;
-            left: 92.6303%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(102, 204, 255);
-            top: -28.5103px;
-            left: 15.8253%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(153, 255, 102);
-            top: -25.5573px;
-            left: 20.4294%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 51, 102);
-            top: -55.9018px;
-            left: 22.8673%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 153, 102);
-            top: -67.4554px;
-            left: 28.5935%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 51, 102);
-            top: -29.2915px;
-            left: 2.81027%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 153, 102);
-            top: -44.952px;
-            left: 98.2541%;
-          "
-        ></div>
-        <div
-          class="decoration"
-          bis_skin_checked="1"
-          style="
-            background-color: rgb(255, 153, 102);
-            top: -51.9292px;
-            left: 39.7651%;
-          "
-        ></div>
+        <div class="frosting"></div>
       </div>
     </div>
 
     <!-- Enhanced Wish Message Popup -->
-    <div class="wish-message" id="wishMessage" bis_skin_checked="1">
+    <div class="wish-message" id="wishMessage">
       <h2>Happy Birthday! ✨Vasantha Kalaiarasi✨</h2>
       <p>Make a wish, May all your dreams come true! 🎂✨</p>
       <button class="btn" onclick="closeWishMessage()">Thank you! ❤️</button>
     </div>
 
     <!-- Navigation Buttons -->
-    <div class="nav-buttons" bis_skin_checked="1">
+    <div class="nav-buttons">
       <button class="btn" onclick="goBack()">◀ Back to Memory Lane</button>
       <button class="btn" onclick="goNext()">Next Surprise ▶</button>
     </div>
@@ -676,6 +763,9 @@
       let candlesBlown = 0;
       const totalCandles = 5;
       let allCandlesBlown = false;
+      let touchStartTime = 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
 
       // Initialize the page when it loads
       document.addEventListener("DOMContentLoaded", function () {
@@ -686,44 +776,103 @@
 
         // Add event listeners for candle interaction
         document.querySelectorAll(".candle").forEach((candle) => {
+          // Click for desktop
           candle.addEventListener("click", blowOutCandle);
-          candle.addEventListener("touchstart", blowOutCandle); // Better for mobile
+          
+          // Touch events for mobile
+          candle.addEventListener("touchstart", handleTouchStart, { passive: true });
+          candle.addEventListener("touchend", handleTouchEnd, { passive: true });
+          
+          // Mouse hover for desktop (optional)
           candle.addEventListener("mouseover", function (e) {
-            if (e.buttons === 0) {
-              // Only trigger on hover when not clicking
+            if (e.buttons === 0 && !isTouchDevice()) {
+              // Only trigger on hover when not clicking and not on touch device
               blowOutCandle.call(this);
             }
           });
         });
 
-        // For better mobile experience with touch
+        // For better mobile experience - detect touch movement over candles
         document.addEventListener("touchmove", function (e) {
-          const touch = e.touches[0];
-          const element = document.elementFromPoint(
-            touch.clientX,
-            touch.clientY
-          );
-          if (
-            element &&
-            element.classList.contains("candle") &&
-            !element.classList.contains("blown")
-          ) {
-            blowOutCandle.call(element);
+          if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            const element = document.elementFromPoint(
+              touch.clientX,
+              touch.clientY
+            );
+            if (
+              element &&
+              element.classList.contains("candle") &&
+              !element.classList.contains("blown")
+            ) {
+              blowOutCandle.call(element);
+            }
           }
-        });
+        }, { passive: true });
 
-        // Optional: Listen for keyboard input
+        // Optional: Listen for keyboard input for accessibility
         document.addEventListener("keypress", function (e) {
-          if (e.key === "b" || e.key === "B") {
-            // Press 'b' to simulate blowing
+          if (e.key === "b" || e.key === "B" || e.key === " ") {
+            // Press 'b' or spacebar to simulate blowing
             blowRandomCandle();
           }
         });
+
+        // Handle orientation change
+        window.addEventListener("orientationchange", function() {
+          // Small delay to allow orientation to complete
+          setTimeout(adjustForOrientation, 100);
+        });
+
+        // Adjust layout on load based on screen size
+        adjustForOrientation();
       });
+
+      // Touch event handlers
+      function handleTouchStart(e) {
+        touchStartTime = Date.now();
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        e.preventDefault(); // Prevent default to avoid scrolling
+      }
+
+      function handleTouchEnd(e) {
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - touchStartTime;
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = Math.abs(touchEndX - touchStartX);
+        const deltaY = Math.abs(touchEndY - touchStartY);
+        
+        // Only trigger if it's a short tap (not a swipe)
+        if (touchDuration < 300 && deltaX < 10 && deltaY < 10) {
+          blowOutCandle.call(this);
+        }
+      }
+
+      // Detect if device is touch-enabled
+      function isTouchDevice() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      }
+
+      // Adjust layout based on orientation
+      function adjustForOrientation() {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        
+        if (isPortrait) {
+          // Portrait adjustments
+          document.body.style.flexDirection = "column";
+        } else {
+          // Landscape adjustments
+          document.body.style.flexDirection = "row";
+          document.querySelector('.cake-container').style.margin = "0 20px";
+        }
+      }
 
       // Create candles for the cake
       function createCandles() {
         const candleContainer = document.getElementById("candleContainer");
+        candleContainer.innerHTML = ""; // Clear existing candles
 
         for (let i = 0; i < totalCandles; i++) {
           const candle = document.createElement("div");
@@ -744,7 +893,7 @@
       // Create floating balloons
       function createBalloons() {
         const colors = ["#ff66b3", "#66ccff", "#ff9966", "#99ff66", "#cc99ff"];
-        const numBalloons = 15;
+        const numBalloons = isTouchDevice() ? 10 : 15; // Fewer balloons on mobile for performance
 
         for (let i = 0; i < numBalloons; i++) {
           const balloon = document.createElement("div");
@@ -761,7 +910,7 @@
       // Create confetti pieces
       function createConfetti() {
         const colors = ["#ffcc00", "#ff66b3", "#66ccff", "#ff9966", "#99ff66"];
-        const numConfetti = 50;
+        const numConfetti = isTouchDevice() ? 30 : 50; // Less confetti on mobile for performance
 
         for (let i = 0; i < numConfetti; i++) {
           const confetti = document.createElement("div");
@@ -803,10 +952,18 @@
           // Create sparkle effect
           createSparkleEffect(this);
 
+          // Provide haptic feedback on mobile if available
+          if (navigator.vibrate) {
+            navigator.vibrate(50); // Vibrate for 50ms
+          }
+
           // Check if all candles are blown
           if (candlesBlown === totalCandles && !allCandlesBlown) {
             allCandlesBlown = true;
             setTimeout(showWishMessage, 1000);
+            
+            // Play sound if available (for future enhancement)
+            playBirthdaySound();
           }
         }
       }
@@ -825,7 +982,7 @@
 
       // Create sparkle effect around the blown candle
       function createSparkleEffect(candle) {
-        const numSparkles = 10;
+        const numSparkles = isTouchDevice() ? 5 : 10; // Fewer sparkles on mobile
         const candleRect = candle.getBoundingClientRect();
 
         for (let i = 0; i < numSparkles; i++) {
@@ -844,7 +1001,9 @@
 
           // Remove sparkle after animation
           setTimeout(() => {
-            sparkle.remove();
+            if (sparkle.parentNode) {
+              sparkle.remove();
+            }
           }, 1000);
         }
       }
@@ -862,7 +1021,7 @@
 
       // Create fireworks effect
       function createFireworks() {
-        const numFireworks = 10;
+        const numFireworks = isTouchDevice() ? 5 : 10; // Fewer fireworks on mobile
         const colors = ["#ff3366", "#ffcc00", "#66ccff", "#ff9966", "#99ff66"];
 
         for (let i = 0; i < numFireworks; i++) {
@@ -880,25 +1039,38 @@
 
             // Remove firework after animation
             setTimeout(() => {
-              firework.remove();
+              if (firework.parentNode) {
+                firework.remove();
+              }
             }, 2000);
           }, i * 300);
         }
       }
 
+      // Play birthday sound (placeholder for future enhancement)
+      function playBirthdaySound() {
+        // This would require adding an audio element to the page
+        // For now, it's a placeholder for future sound implementation
+        console.log("Birthday sound would play here!");
+      }
+
       // Navigation functions
       function goBack() {
         // Replace with actual back URL
-
         window.location.href = "memorylane.html";
       }
 
       function goNext() {
         // Replace with actual next URL
-
         window.location.href = "letter.html";
       }
-    </script>
 
-    </body>
+      // Handle window resize
+      window.addEventListener("resize", function() {
+        // Debounce resize events for performance
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(adjustForOrientation, 250);
+      });
+    </script>
+  </body>
 </html>
