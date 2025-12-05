@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Magical Birthday Cake</title>
     <style>
       /* Global Styles */
@@ -24,17 +24,7 @@
         justify-content: center;
         overflow-x: hidden;
         position: relative;
-      }
-
-      /* Header Text */
-      .header-text {
-        text-align: center;
-        color: #666;
-        margin: 20px 20px 10px;
-        font-size: 1.2rem;
-        z-index: 10;
-        position: relative;
-        max-width: 90%;
+        padding: 20px;
       }
 
       /* Floating Balloons */
@@ -83,7 +73,8 @@
       /* Birthday Cake Container */
       .cake-container {
         position: relative;
-        width: 300px;
+        width: 100%;
+        max-width: 300px;
         height: 300px;
         margin: 20px auto;
         z-index: 10;
@@ -155,6 +146,7 @@
         justify-content: center;
         gap: 20px;
         z-index: 15;
+        padding: 0 10px;
       }
 
       .candle {
@@ -165,6 +157,7 @@
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.3s ease;
+        flex-shrink: 0;
       }
 
       .flame {
@@ -283,6 +276,8 @@
         max-width: 400px;
         transition: all 0.5s ease;
         border: 3px solid rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
       }
 
       .wish-message.show {
@@ -360,8 +355,10 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 0 50px;
+        padding: 0 20px;
         z-index: 50;
+        flex-wrap: wrap;
+        gap: 15px;
       }
 
       .btn {
@@ -376,6 +373,10 @@
         box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
         transition: all 0.3s ease;
         outline: none;
+        text-align: center;
+        flex: 1;
+        min-width: 140px;
+        max-width: 200px;
       }
 
       .btn:hover {
@@ -388,41 +389,49 @@
         box-shadow: 0 5px 10px rgba(255, 51, 102, 0.4);
       }
 
-      /* Desktop Styles (default) */
-      @media (min-width: 769px) {
-        .header-text {
-          font-size: 1.3rem;
-          margin-bottom: 30px;
+      /* Instructions for mobile */
+      .instructions {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        max-width: 90%;
+        z-index: 20;
+      }
+
+      .instructions p {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      /* Improved Responsive Design */
+      @media (max-width: 1024px) {
+        .cake-container {
+          max-width: 280px;
+          height: 280px;
         }
         
-        .candle {
-          min-width: 8px;
-        }
-        
-        .btn {
-          padding: 15px 30px;
-          font-size: 18px;
-        }
-        
-        .wish-message {
-          max-width: 450px;
-          padding: 30px;
-        }
-        
-        .wish-message h2 {
-          font-size: 32px;
-        }
-        
-        .wish-message p {
-          font-size: 22px;
+        .cake {
+          width: 180px;
+          height: 110px;
         }
       }
 
-      /* Tablet Styles */
-      @media (max-width: 768px) and (min-width: 481px) {
+      @media (max-width: 768px) {
+        body {
+          padding: 15px;
+          justify-content: flex-start;
+          padding-top: 40px;
+        }
+
         .cake-container {
-          width: 250px;
+          max-width: 250px;
           height: 250px;
+          margin: 10px auto 30px;
         }
 
         .cake {
@@ -430,30 +439,15 @@
           height: 90px;
         }
 
-        .cake:before {
-          height: 30px;
-          top: -30px;
-        }
-
-        .cake:after {
-          height: 25px;
-          top: -55px;
-        }
-
         .candle-container {
-          top: -75px;
+          top: -85px;
           gap: 15px;
+          padding: 0 8px;
         }
 
         .candle {
           width: 7px;
-          height: 25px;
-        }
-
-        .flame {
-          width: 10px;
-          height: 18px;
-          top: -18px;
+          height: 28px;
         }
 
         .wish-message h2 {
@@ -465,32 +459,35 @@
         }
 
         .nav-buttons {
-          padding: 0 30px;
-          bottom: 25px;
+          position: relative;
+          bottom: auto;
+          margin-top: 30px;
+          justify-content: center;
         }
 
         .btn {
           padding: 10px 18px;
           font-size: 15px;
+          min-width: 120px;
         }
-        
-        .header-text {
-          font-size: 1.1rem;
+
+        .instructions {
+          margin-top: 10px;
+          padding: 10px;
+          font-size: 14px;
         }
       }
 
-      /* Mobile Styles */
       @media (max-width: 480px) {
-        .header-text {
-          font-size: 1rem;
-          margin-top: 15px;
-          margin-bottom: 5px;
+        body {
+          padding: 10px;
+          padding-top: 20px;
         }
 
         .cake-container {
-          width: 200px;
+          max-width: 200px;
           height: 200px;
-          margin: 10px auto;
+          margin: 5px auto 20px;
         }
 
         .cake {
@@ -499,34 +496,34 @@
         }
 
         .cake:before {
-          height: 25px;
-          top: -25px;
+          top: -30px;
+          height: 30px;
         }
 
         .cake:after {
+          top: -50px;
           height: 20px;
-          top: -45px;
-        }
-
-        .frosting {
-          top: -60px;
-          height: 4px;
         }
 
         .candle-container {
-          top: -65px;
+          top: -75px;
           gap: 12px;
+          padding: 0 6px;
         }
 
         .candle {
           width: 6px;
-          height: 20px;
+          height: 25px;
         }
 
         .flame {
-          width: 8px;
-          height: 15px;
-          top: -15px;
+          width: 10px;
+          height: 16px;
+          top: -16px;
+        }
+
+        .frosting {
+          top: -55px;
         }
 
         .wish-message {
@@ -545,32 +542,28 @@
         }
 
         .nav-buttons {
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
           padding: 0 15px;
-          bottom: 20px;
         }
 
         .btn {
-          padding: 10px 14px;
+          padding: 8px 14px;
           font-size: 14px;
-          white-space: nowrap;
+          width: 100%;
+          max-width: 250px;
+          min-width: 0;
         }
-        
-        /* Scale down balloons and confetti on mobile */
-        .balloon {
-          width: 25px;
-          height: 35px;
-        }
-        
-        .confetti {
-          width: 6px;
-          height: 6px;
+
+        .instructions p {
+          font-size: 14px;
         }
       }
 
-      /* Extra Small Devices */
       @media (max-width: 360px) {
         .cake-container {
-          width: 180px;
+          max-width: 180px;
           height: 180px;
         }
 
@@ -580,33 +573,29 @@
         }
 
         .cake:before {
-          height: 20px;
-          top: -20px;
+          top: -25px;
+          height: 25px;
         }
 
         .cake:after {
+          top: -40px;
           height: 15px;
-          top: -35px;
-        }
-
-        .frosting {
-          top: -50px;
         }
 
         .candle-container {
-          top: -55px;
-          gap: 8px;
+          top: -65px;
+          gap: 10px;
         }
 
         .candle {
           width: 5px;
-          height: 18px;
+          height: 22px;
         }
 
         .flame {
-          width: 7px;
-          height: 12px;
-          top: -12px;
+          width: 8px;
+          height: 14px;
+          top: -14px;
         }
 
         .wish-message {
@@ -623,108 +612,48 @@
         }
 
         .nav-buttons {
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
-          bottom: 15px;
+          padding: 0 10px;
         }
 
         .btn {
-          width: 100%;
-          max-width: 280px;
           padding: 8px 12px;
           font-size: 13px;
         }
-        
-        .header-text {
-          font-size: 0.9rem;
-        }
       }
 
-      /* Landscape Mode */
-      @media (max-height: 500px) and (orientation: landscape) {
+      /* Landscape orientation */
+      @media (max-height: 600px) and (orientation: landscape) {
         body {
           flex-direction: row;
           justify-content: space-around;
+          padding: 10px;
         }
-        
-        .header-text {
+
+        .cake-container {
+          margin: 10px;
+          flex-shrink: 0;
+        }
+
+        .instructions {
           position: absolute;
           top: 10px;
-          width: 100%;
-          margin: 0;
-          font-size: 0.9rem;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%;
+          margin-top: 0;
         }
-        
-        .cake-container {
-          width: 180px;
-          height: 180px;
-          margin: 0;
-        }
-        
+
         .nav-buttons {
-          position: absolute;
+          position: fixed;
           bottom: 10px;
-          flex-direction: row;
-        }
-        
-        .btn {
-          padding: 8px 12px;
-          font-size: 12px;
-        }
-      }
-
-      /* Large Screens */
-      @media (min-width: 1200px) {
-        .cake-container {
-          width: 350px;
-          height: 350px;
-        }
-
-        .cake {
-          width: 230px;
-          height: 140px;
-        }
-
-        .cake:before {
-          height: 45px;
-          top: -45px;
-        }
-
-        .cake:after {
-          height: 35px;
-          top: -80px;
-        }
-
-        .candle-container {
-          top: -110px;
-        }
-
-        .candle {
-          width: 9px;
-          height: 35px;
-        }
-
-        .flame {
-          width: 14px;
-          height: 25px;
-          top: -25px;
-        }
-        
-        .btn {
-          padding: 15px 35px;
-          font-size: 18px;
-        }
-        
-        .header-text {
-          font-size: 1.5rem;
-          margin-bottom: 40px;
         }
       }
 
       /* Prevent text selection */
-      .btn, .candle, .header-text {
+      .noselect {
+        -webkit-touch-callout: none;
         -webkit-user-select: none;
+        -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
@@ -736,20 +665,29 @@
     />
   </head>
   <body>
-    <h2 class="header-text">Blow Out the Candles daww!</h2>
+    <!-- Instructions for mobile users -->
+    <div class="instructions noselect">
+      <p><i class="fas fa-birthday-cake"></i> Blow out the Candles daww!</p>
+    </div>
 
     <!-- Birthday Cake -->
     <div class="cake-container">
       <div class="cake">
-        <div class="candle-container" id="candleContainer"></div>
+        <!-- Candles will be added by JavaScript -->
+        <div class="candle-container" id="candleContainer">
+          <!-- Candles will be dynamically added here -->
+        </div>
+
+        <!-- Frosting & Decorations -->
         <div class="frosting"></div>
+        <!-- Decorations will be dynamically added -->
       </div>
     </div>
 
     <!-- Enhanced Wish Message Popup -->
     <div class="wish-message" id="wishMessage">
-      <h2>Happy Birthday! ✨Vasantha Kalaiarasi✨</h2>
-      <p>Make a wish, May all your dreams come true! 🎂✨</p>
+      <h2>✨ Happy Birthday! ✨</h2>
+      <p>Make a wish, Bestie! May all your dreams come true! 🎂✨</p>
       <button class="btn" onclick="closeWishMessage()">Thank you! ❤️</button>
     </div>
 
@@ -764,62 +702,88 @@
       let candlesBlown = 0;
       const totalCandles = 5;
       let allCandlesBlown = false;
-      let isMobile = false;
+      let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
       // Initialize the page when it loads
       document.addEventListener("DOMContentLoaded", function () {
-        // Check if device is mobile
-        isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
         createCandles();
         createBalloons();
         createConfetti();
         createDecorations();
 
+        // Adjust balloon count for mobile
+        if (isMobile) {
+          adjustForMobile();
+        }
+
         // Add event listeners for candle interaction
         document.querySelectorAll(".candle").forEach((candle) => {
-          // Click event for all devices
           candle.addEventListener("click", blowOutCandle);
           
-          // Touch events for mobile
+          // For mobile devices
           if (isMobile) {
             candle.addEventListener("touchstart", function(e) {
               e.preventDefault();
               blowOutCandle.call(this);
             }, { passive: false });
           } else {
-            // Hover effect for desktop only
             candle.addEventListener("mouseover", function (e) {
               if (e.buttons === 0) {
+                // Only trigger on hover when not clicking
                 blowOutCandle.call(this);
               }
             });
           }
         });
 
-        // Optional: Listen for keyboard input for accessibility
+        // Optional: Listen for keyboard input
         document.addEventListener("keypress", function (e) {
-          if (e.key === "b" || e.key === "B" || e.key === " ") {
+          if (e.key === "b" || e.key === "B") {
+            // Press 'b' to simulate blowing
             blowRandomCandle();
           }
         });
 
-        // Handle orientation change
-        window.addEventListener("orientationchange", function() {
-          setTimeout(function() {
-            location.reload();
-          }, 100);
-        });
+        // Handle window resize
+        window.addEventListener('resize', handleResize);
       });
+
+      // Adjust for mobile devices
+      function adjustForMobile() {
+        // Reduce number of decorative elements for better performance
+        document.querySelectorAll('.balloon').forEach((el, index) => {
+          if (index > 8) el.style.display = 'none';
+        });
+        
+        document.querySelectorAll('.confetti').forEach((el, index) => {
+          if (index > 20) el.style.display = 'none';
+        });
+      }
+
+      // Handle window resize
+      function handleResize() {
+        // Adjust candle spacing based on screen width
+        const candleContainer = document.getElementById("candleContainer");
+        const screenWidth = window.innerWidth;
+        
+        if (screenWidth < 480) {
+          candleContainer.style.gap = "12px";
+        } else if (screenWidth < 768) {
+          candleContainer.style.gap = "15px";
+        } else {
+          candleContainer.style.gap = "20px";
+        }
+      }
 
       // Create candles for the cake
       function createCandles() {
         const candleContainer = document.getElementById("candleContainer");
-        candleContainer.innerHTML = "";
+        candleContainer.innerHTML = ''; // Clear any existing candles
 
         for (let i = 0; i < totalCandles; i++) {
           const candle = document.createElement("div");
           candle.className = "candle";
+          candle.setAttribute('data-index', i);
 
           const flame = document.createElement("div");
           flame.className = "flame";
@@ -841,7 +805,8 @@
         for (let i = 0; i < numBalloons; i++) {
           const balloon = document.createElement("div");
           balloon.className = "balloon";
-          balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          balloon.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
           balloon.style.left = `${Math.random() * 100}%`;
           balloon.style.animationDuration = `${15 + Math.random() * 10}s`;
           balloon.style.animationDelay = `${Math.random() * 5}s`;
@@ -852,12 +817,13 @@
       // Create confetti pieces
       function createConfetti() {
         const colors = ["#ffcc00", "#ff66b3", "#66ccff", "#ff9966", "#99ff66"];
-        const numConfetti = isMobile ? 30 : 50;
+        const numConfetti = isMobile ? 25 : 50;
 
         for (let i = 0; i < numConfetti; i++) {
           const confetti = document.createElement("div");
           confetti.className = "confetti";
-          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
           confetti.style.left = `${Math.random() * 100}%`;
           confetti.style.width = `${5 + Math.random() * 5}px`;
           confetti.style.height = `${5 + Math.random() * 10}px`;
@@ -871,12 +837,17 @@
       function createDecorations() {
         const cake = document.querySelector(".cake");
         const colors = ["#ff3366", "#ffcc00", "#66ccff", "#ff9966", "#99ff66"];
-        const numDecorations = 10;
+        const numDecorations = isMobile ? 8 : 10;
+
+        // Clear existing decorations
+        const existingDecorations = cake.querySelectorAll('.decoration');
+        existingDecorations.forEach(dec => dec.remove());
 
         for (let i = 0; i < numDecorations; i++) {
           const decoration = document.createElement("div");
           decoration.className = "decoration";
-          decoration.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          decoration.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
           decoration.style.top = `${-20 - Math.random() * 50}px`;
           decoration.style.left = `${Math.random() * 100}%`;
           cake.appendChild(decoration);
@@ -892,11 +863,6 @@
           // Create sparkle effect
           createSparkleEffect(this);
 
-          // Provide haptic feedback on mobile if available
-          if (navigator.vibrate && isMobile) {
-            navigator.vibrate(50);
-          }
-
           // Check if all candles are blown
           if (candlesBlown === totalCandles && !allCandlesBlown) {
             allCandlesBlown = true;
@@ -907,25 +873,36 @@
 
       // Simulate blowing a random candle
       function blowRandomCandle() {
-        const unblownCandles = Array.from(document.querySelectorAll(".candle:not(.blown)"));
+        const unblownCandles = Array.from(
+          document.querySelectorAll(".candle:not(.blown)")
+        );
         if (unblownCandles.length > 0) {
-          const randomCandle = unblownCandles[Math.floor(Math.random() * unblownCandles.length)];
+          const randomCandle =
+            unblownCandles[Math.floor(Math.random() * unblownCandles.length)];
           blowOutCandle.call(randomCandle);
         }
       }
 
       // Create sparkle effect around the blown candle
       function createSparkleEffect(candle) {
-        const numSparkles = isMobile ? 5 : 10;
+        const numSparkles = isMobile ? 6 : 10;
         const candleRect = candle.getBoundingClientRect();
+        const containerRect = document.querySelector('.cake-container').getBoundingClientRect();
 
         for (let i = 0; i < numSparkles; i++) {
           const sparkle = document.createElement("div");
           sparkle.className = "sparkle";
-          sparkle.style.left = `${candleRect.left + Math.random() * candleRect.width}px`;
-          sparkle.style.top = `${candleRect.top + Math.random() * (candleRect.height / 2)}px`;
-          sparkle.style.animation = `sparkle ${0.5 + Math.random() * 0.5}s forwards`;
-          document.body.appendChild(sparkle);
+          
+          // Position sparkles relative to cake container
+          const leftPos = candleRect.left - containerRect.left + (Math.random() * candleRect.width);
+          const topPos = candleRect.top - containerRect.top + (Math.random() * (candleRect.height / 2));
+          
+          sparkle.style.left = `${leftPos}px`;
+          sparkle.style.top = `${topPos}px`;
+          sparkle.style.animation = `sparkle ${
+            0.5 + Math.random() * 0.5
+          }s forwards`;
+          document.querySelector('.cake-container').appendChild(sparkle);
 
           // Remove sparkle after animation
           setTimeout(() => {
@@ -938,8 +915,14 @@
 
       // Show the wish message when all candles are blown
       function showWishMessage() {
-        document.getElementById("wishMessage").classList.add("show");
+        const wishMessage = document.getElementById("wishMessage");
+        wishMessage.classList.add("show");
         createFireworks();
+        
+        // Add haptic feedback on mobile
+        if (navigator.vibrate && isMobile) {
+          navigator.vibrate([100, 50, 100]);
+        }
       }
 
       // Close the wish message
@@ -949,7 +932,7 @@
 
       // Create fireworks effect
       function createFireworks() {
-        const numFireworks = isMobile ? 5 : 10;
+        const numFireworks = isMobile ? 6 : 10;
         const colors = ["#ff3366", "#ffcc00", "#66ccff", "#ff9966", "#99ff66"];
 
         for (let i = 0; i < numFireworks; i++) {
@@ -958,8 +941,11 @@
             firework.className = "firework";
             firework.style.left = `${10 + Math.random() * 80}%`;
             firework.style.top = `${10 + Math.random() * 60}%`;
-            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            firework.style.animation = `firework ${1 + Math.random()}s forwards`;
+            firework.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            firework.style.animation = `firework ${
+              1 + Math.random()
+            }s forwards`;
             document.body.appendChild(firework);
 
             // Remove firework after animation
@@ -974,23 +960,14 @@
 
       // Navigation functions
       function goBack() {
+        // Replace with actual back URL
         window.location.href = "memorylane.html";
       }
 
       function goNext() {
+        // Replace with actual next URL
         window.location.href = "letter.html";
       }
-
-      // Handle window resize
-      window.addEventListener("resize", function() {
-        clearTimeout(window.resizeTimer);
-        window.resizeTimer = setTimeout(function() {
-          // Only reload on significant orientation changes
-          if (window.innerWidth <= 480 && window.orientation !== undefined) {
-            location.reload();
-          }
-        }, 250);
-      });
     </script>
   </body>
 </html>
